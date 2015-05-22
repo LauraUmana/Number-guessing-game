@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number Guessing Game</title>
+	<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="stylenumbers.css">
+
+	
+</head>
+
+<body>
+	<section id="gameArea">
+		<h1 id="output">Want to try to guess my number? Enter a number that's 1-100. I'll tell you if you guessed correctly, are <i>close</i>, or completely wrong!</h1>
+		<input type="text" id="input" placeholder="Enter Number">
+		<input type="button" value="Submit Guess" onClick="main()" id="playerButton">
+		<input type="button" value="Start Over" id="startoverbtn">
+	</section>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+	var compNum = Math.ceil((Math.random() * 100) + 1);
+	var userGuess;
+	var totalGuesses = 0;
+
+	var output = $('#output'); //jq object
+	//var output = document.getElementById('output'); //dom native object
+	console.log(output);
+
+	var input = $('#input');
+	function main() {
+		totalGuesses = totalGuesses += 1;
+		userGuess = $('#input').val();
+
+		if(isNaN(userGuess)) {
+			output.text("You wasted a guess by writing a word instead of a number?");
+				console.log("first")
+		} else {
+			console.log("second");
+
+			if(userGuess > compNum) {
+				//output.innerHTML = "That's too high. You have made " + totalGuesses + " guesses";
+				 output.text(userGuess + " is too high. You have made " + totalGuesses + " guess(es)");
+				console.log("third");
+
+			} else if (userGuess < compNum) {
+				output.text(userGuess + " is that's too low. You have made " + totalGuesses + " guess(es)");
+					console.log("fourth",output);
+
+			} else {
+				output.text("You got it! It's " + userGuess);
+				$('#startoverbtn').css('display', 'inline');
+				$('#startoverbtn').click(function() {
+					location.reload();
+					console.log("fifth");
+				});
+				
+			}
+		}
+	}
+	input.keyup(function(e) {
+		console.log("Keyy up tapped")
+		var code = e.keycode || e.which;
+		if(code == 13) {
+			console.log("Enter tapped")
+			main();
+		}
+	});
+	input.click(function() {
+		$(this).val('');
+	});
+
+	</script>
+</body>
+</html>
